@@ -31,8 +31,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html'
+  })
+
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html'
+  })
+
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
