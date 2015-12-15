@@ -89,6 +89,11 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl'
       }
+    },
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
     }
   })
 
@@ -99,7 +104,12 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
           templateUrl: 'templates/tab-trends.html',
           controller: 'TrendsCtrl'
         }
-      }
+      },
+      resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
+    }
     })
 
   .state('tab.account', {
@@ -109,6 +119,11 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
       }
+    },
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
     }
   });
 

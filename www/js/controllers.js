@@ -181,7 +181,7 @@ angular.module('fitBuddi.controllers', [])
 
 }])
 
-.controller('AccountCtrl', ['$scope', 'currentAuth', function($scope, currentAuth) {
+.controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state) {
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   // get current user info
   $scope.currentUser = '';
@@ -194,7 +194,10 @@ angular.module('fitBuddi.controllers', [])
   }, function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   });
-
+  $scope.logout = function(){
+    usersRef.unauth();
+    $state.go("login");
+  };
 }])
 
 .directive('typedjs', function() {

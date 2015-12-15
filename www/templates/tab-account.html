@@ -1,5 +1,5 @@
 <ion-view view-title="Account">
-  <ion-content>
+  <ion-content  overflow-scroll="true" padding="'true'" scroll="false" class="has-header">
 		<div class="list">
 
 			<div class="item item-divider">
@@ -8,7 +8,7 @@
 
 			<a class="item item-thumbnail-left">
 			    <img src="{{ currentAuth.password.profileImageURL }}">
-			    <h2>name: {{ currentUser.name }}</h2>
+			    <h2>name: '{{ currentUser.name }}'</h2>
 			    <p>email: {{ currentAuth.password.email }}</p>
 			</a>
 
@@ -18,9 +18,13 @@
 
 			<a class="item item-thumbnail-left">
 			    <img src="{{ currentAuth.password.profileImageURL }}">
-			    <h2>name: {{ currentUser.buddi.name }}</h2>
+			    <h2>name: '{{ currentUser.buddi.name }}'</h2>
 			    <p>birthday: {{ buddiBirthday }}</p>
 			</a>
+
+			<button class="button button-block" ng-click="logout()">
+  				Log out
+			</button>
 		</div>
   </ion-content>
 </ion-view>

@@ -1,4 +1,4 @@
-<ion-view title="Signup">
+<ion-view title="Create an Account">
     <ion-content overflow-scroll="true" padding="'false'" scroll="false" class="has-header">
         <!-- show if there is no current user -->
         <form class="list" ng-hide="authData">
@@ -16,7 +16,7 @@
                     <input type="password" ng-model="user.password" placeholder="your password">
                 </label>
             </ion-list>
-            <button class="button button-stable button-outline button-block"  ng-click="signup()">Sign up</button>
+            <button class="button button-block"  ng-click="signup()">Sign up!</button>
         </form>
         <!-- Show if user is already logged in -->
         <div class="card" ng-show="authData">
