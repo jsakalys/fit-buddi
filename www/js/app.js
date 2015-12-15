@@ -1,13 +1,6 @@
-// Ionic Starter App
+angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBuddi.services'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
-
-.run(function($ionicPlatform) {
+.run(['$ionicPlatform', '$rootScope', '$state', function($ionicPlatform, $rootScope, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,60 +14,90 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
-})
+  $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+    // We can catch the error thrown when the $requireAuth promise is rejected
+    // and redirect the user back to the home page
+    if (error === "AUTH_REQUIRED") {
+      $state.go("login");
+    }
+  });
+}])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
   .state('signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html'
+    templateUrl: 'templates/signup.html',
+    controller: 'SignupCtrl',
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$waitForAuth();
+      }]
+    }
   })
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html'
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$waitForAuth();
+      }]
+    }
   })
 
-  // setup an abstract state for the tabs directive
+  .state('start', {
+    url: '/start',
+    templateUrl: 'templates/start.html',
+    controller: 'StartCtrl',
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
+    }
+  })
+
+  .state('create', {
+    url: '/create',
+    templateUrl: 'templates/create.html',
+    controller: 'CreateCtrl',
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
+    }
+  })
+
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+        return Auth.$requireAuth();
+      }]
+    }
   })
 
-  // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.home', {
+    url: '/home',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-home': {
+        templateUrl: 'templates/tab-home.html',
+        controller: 'HomeCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.trends', {
+      url: '/trends',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-trends': {
+          templateUrl: 'templates/tab-trends.html',
+          controller: 'TrendsCtrl'
         }
       }
     })
@@ -90,6 +113,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/home');
 
 });
