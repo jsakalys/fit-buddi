@@ -1,6 +1,5 @@
 angular.module('fitBuddi.controllers', [])
 
-
 .controller('SignupCtrl', ['$scope', 'Auth', 'currentAuth', '$state', function($scope, Auth, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   // check if user is logged in
@@ -10,12 +9,10 @@ angular.module('fitBuddi.controllers', [])
     } else {
       console.log("Logged in as", authData.uid);
       // get current user info
-      $scope.currentUser = '';
-      usersRef.child(currentAuth.uid).on("value", function(user) {
+      usersRef.child(currentAuth.uid).on("value", function(user){
         $scope.currentUser = user.val();
-        console.log($scope.currentUser)
       }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+        alert("Sorry! There was an error getting your data:" + errorObject.code);
       });
     }
     $scope.authData = authData;
@@ -47,16 +44,14 @@ angular.module('fitBuddi.controllers', [])
           } else {
             console.log("Authenticated successfully with payload:", authData);
             if (authData) {
-              console.log(authData)
-            // save the user's profile into Firebase so we can list users,
-            // use them in Security and Firebase Rules, and show profiles
+              // save the user's profile into Firebase
               usersRef.child(authData.uid).set({
                 provider: authData.provider,
                 name: $scope.user.name
               });
             };
             // redirect user to select state
-            $state.go("select");
+            $state.go("start");
           }
         });
       }
@@ -70,18 +65,16 @@ angular.module('fitBuddi.controllers', [])
 .controller('LoginCtrl', ['$scope', 'Auth', 'currentAuth', '$state', function($scope, Auth, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   // check if user is logged in
-  Auth.$onAuth(function(authData) {
+  Auth.$onAuth(function(authData){
     if (authData === null) {
       console.log("Not logged in yet.");
     } else {
       console.log("Logged in as", authData.uid);
       // get current user info
-      $scope.currentUser = '';
-      usersRef.child(currentAuth.uid).on("value", function(user) {
+      usersRef.child(currentAuth.uid).on("value", function(user){
         $scope.currentUser = user.val();
-        console.log($scope.currentUser)
-      }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+      }, function (errorObject){
+        alert("Sorry! There was an error getting your data:" + errorObject.code);
       });
     }
     $scope.authData = authData;
@@ -92,18 +85,14 @@ angular.module('fitBuddi.controllers', [])
     password: ''
   }
   $scope.fbLogin = function() {
-    Auth.$authWithOAuthRedirect("facebook").then(function(authData) {
-      console.log(authData)
-      // User successfully logged in
+    Auth.$authWithOAuthRedirect("facebook").then(function(authData){
     }).catch(function(error) {
       if (error.code === "TRANSPORT_UNAVAILABLE") {
-        Auth.$authWithOAuthPopup("facebook").then(function(authData) {
-          // User successfully logged in.
-          console.log(authData);
+        Auth.$authWithOAuthPopup("facebook").then(function(authData){
+          console.log("Login Successful!", authData);
           $state.go("tab.home");
         });
       } else {
-        // Another error occurred
         console.log(error);
       }
     });
@@ -116,7 +105,7 @@ angular.module('fitBuddi.controllers', [])
       if (error) {
         console.log("Login Failed!", error);
       } else {
-        console.log("Authenticated successfully with payload:", authData);
+        console.log("Login Successful!", authData);
         $state.go("tab.home");
       }
     });
@@ -128,11 +117,10 @@ angular.module('fitBuddi.controllers', [])
 
 .controller('StartCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-  usersRef.child(currentAuth.uid).on("value", function(user) {
+  usersRef.child(currentAuth.uid).on("value", function(user){
     $scope.currentUser = user.val();
-    console.log($scope.currentUser)
   }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
+    alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
   $scope.texttyping = [
     "Hi there! ^500 Welcome to fitBuddi ^500 . ^500 . ^500 . <br> I notice this is your first time ^500 . ^500 . ^500 . <br> Before you can proceed, ^500 we need to create a buddi to help you along on your fitness journey."
@@ -145,12 +133,10 @@ angular.module('fitBuddi.controllers', [])
 .controller('CreateCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   // get current user info
-  $scope.currentUser = '';
-  usersRef.child(currentAuth.uid).on("value", function(user) {
+  usersRef.child(currentAuth.uid).on("value", function(user){
     $scope.currentUser = user.val();
-    console.log($scope.currentUser)
   }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
+    alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
   var randomNames = [
     "Bubbles", "Lupin", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
@@ -173,41 +159,116 @@ angular.module('fitBuddi.controllers', [])
   }
 }])
 
-.controller('HomeCtrl', ['$scope', 'currentAuth', function($scope, currentAuth) {
-
-}])
-
-.controller('TrendsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth) {
-
-}])
-
-.controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state) {
+.controller('HomeCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   // get current user info
-  $scope.currentUser = '';
-  $scope.currentAuth = currentAuth;
-  console.log(currentAuth)
-  usersRef.child(currentAuth.uid).on("value", function(user) {
+  usersRef.child(currentAuth.uid).on("value", function(user){
     $scope.currentUser = user.val();
-    $scope.buddiBirthday = new Date($scope.currentUser.buddi.birthday);
-    console.log($scope.currentUser)
+    $scope.getHealth = function(num){
+      return new Array(num);   
+    };
+    $scope.getMood = function(mood){
+      if (mood == 'happy') {
+        return true;
+      } else {
+        return false;
+      };
+    };
+    $scope.fullHearts = $scope.currentUser.buddi.health;
+    $scope.emptyHearts = (3 - $scope.fullHearts);
+    $scope.mood = $scope.currentUser.buddi.mood;
   }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
+    alert("Sorry! There was an error getting your data:" + errorObject.code);
+  });
+  $scope.giveGift = function(){
+    usersRef.child(currentAuth.uid).child('buddi').child('mood').set(
+      'happy'
+    );
+  };
+  // stepcounter.getTodayStepCount(function(success){
+  //   $scope.stepsToday = success;
+  $scope.stepsToday = 1000
+    if ($scope.stepsToday <= 3000) {
+      usersRef.child(currentAuth.uid).child('buddi').child('health').set(1);
+      usersRef.child(currentAuth.uid).child('buddi').child('mood').set('unhappy');
+      $scope.texttyping = [
+        "Hey! ^500 I noticed you haven't walked that much today yet ^500 . ^500 . ^500 . <br> How about we go outside and see the sights?"
+      ]
+    } else if ($scope.stepsToday <= 5000) {
+      usersRef.child(currentAuth.uid).child('buddi').child('health').set(2);
+      usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
+      $scope.texttyping = [
+        "Wow! ^500 . ^500 . ^500 you've walked quite a bit today ^500 . ^500 . ^500 . <br> Let's see if we can get to 1000 steps!"
+      ]
+    } else if ($scope.stepsToday >= 10000) {
+      usersRef.child(currentAuth.uid).child('buddi').child('health').set(3);
+      usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
+      $scope.texttyping = [
+        "Holy cow! ^500 I'd say we've put in quite a workout today! :sweat:"
+      ]
+    } else {
+      $scope.texttyping = [
+        "ZzzZzzzzz"
+      ]
+    }
+  // },function(failure){
+  //   alert(failure)
+  // });
+}])
+
+.controller('TrendsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
+  var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+  // get current user info
+  usersRef.child(currentAuth.uid).on("value", function(user){
+    $scope.currentUser = user.val();
+  }, function (errorObject) {
+    alert("Sorry! There was an error getting your data:" + errorObject.code);
+  });
+  stepcounter.getTodayStepCount(function(success){
+    $scope.stepsToday = success
+  },function(failure){
+    alert(failure)
+  });
+  // stepcounter.getStepCount(function(success){
+  //   $scope.totalSteps = success
+  // },function(failure){
+  //   alert(failure)
+  // });
+  stepcounter.getHistory(function(success){
+    $scope.stepHistory = JSON.stringify(success)
+  },function(failure){
+    alert(failure)
+  });
+}])
+
+.controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
+  var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+  // get current user info
+  $scope.currentAuth = currentAuth;
+  usersRef.child(currentAuth.uid).on("value", function(user){
+    $scope.currentUser = user.val();
+    // important! get birthday from timestamp
+    $scope.buddiBirthday = new Date($scope.currentUser.buddi.birthday);
+  }, function (errorObject) {
+    alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
   $scope.logout = function(){
     usersRef.unauth();
     $state.go("login");
   };
+  $scope.create = function(){
+    $state.go("create");
+  };
 }])
 
-.directive('typedjs', function() {
+.directive('typedjs', function(){
   return {
     restrict: 'E',
     scope: {
       strings: '='
     },
     template: '<span id="typed-output"></span>',
-    link: function($scope, $element, $attrs) {
+    link: function($scope, $element, $attrs){
       var options = {
         strings: $scope.strings,
         typeSpeed: 20,

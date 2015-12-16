@@ -7,7 +7,8 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-
+    <link href="css/style.css" rel="stylesheet">
+    
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
@@ -30,8 +31,63 @@
 
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
+    <!-- Pedometer API -->
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // device APIs are available
+    function onDeviceReady() {
+
+    // Now safe to use device APIs
+      var success = function(message) {
+        alert(message);
+      }
+
+      var failure = function() {
+        alert("Error calling CordovaStepCounter Plugin");
+      }
+
+      // Start the step counter
+      // startingOffset will be added to the total steps counted in this session.
+      // ie. say you have already recorded 150 steps for a certain activity, then
+      // the step counter records 50. The getStepCount method will then return 200.
+      var startingOffset = 0;
+      stepcounter.start(startingOffset, success, failure);
+
+      // Stop the step counter
+      stepcounter.stop(success, failure);
+
+      // Get the amount of steps for today (or -1 if it no data given)
+      // stepcounter.getTodayStepCount(success, failure);
+
+      // Get the amount of steps since the service is started (it is actually reseted to 0 when the service is killed by the system)
+      // stepcounter.getStepCount(success, failure);
+      
+      // Returns true/false if Android device is running >API level 19 && has the step counter API available
+      // stepcounter.deviceCanCountSteps(success, failure);
+
+      // Get the step history (JavaScript object)
+      // sample result :
+      //{
+      //  "2015-01-01":{"offset": 123, "steps": 456},
+      //  "2015-01-02":{"offset": 579, "steps": 789}
+      //  ...
+      //}
+      // stepcounter.getHistory(
+      //     function(historyData){
+      //         success(historyData);
+      //     },
+      //     failure
+      // );
+    }
+    </script>
   </head>
-  <body ng-app="fitBuddi">
+  <body ng-app="fitBuddi" onload="onLoad()">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->

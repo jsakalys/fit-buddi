@@ -1,3 +1,6 @@
+var authWait = ["Auth", function(Auth) { return Auth.$waitForAuth(); }]
+var authRequire = ["Auth", function(Auth) { return Auth.$requireAuth(); }]
+
 angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBuddi.services'])
 
 .run(['$ionicPlatform', '$rootScope', '$state', function($ionicPlatform, $rootScope, $state) {
@@ -7,7 +10,6 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -32,9 +34,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     templateUrl: 'templates/signup.html',
     controller: 'SignupCtrl',
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$waitForAuth();
-      }]
+      "currentAuth": authWait
     }
   })
 
@@ -43,9 +43,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl',
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$waitForAuth();
-      }]
+      "currentAuth": authWait
     }
   })
 
@@ -54,9 +52,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     templateUrl: 'templates/start.html',
     controller: 'StartCtrl',
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
   })
 
@@ -65,9 +61,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     templateUrl: 'templates/create.html',
     controller: 'CreateCtrl',
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
   })
 
@@ -76,9 +70,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     abstract: true,
     templateUrl: 'templates/tabs.html',
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
   })
 
@@ -91,9 +83,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
       }
     },
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
   })
 
@@ -106,11 +96,9 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
         }
       },
       resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
-    })
+  })
 
   .state('tab.account', {
     url: '/account',
@@ -121,9 +109,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
       }
     },
     resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-        return Auth.$requireAuth();
-      }]
+      "currentAuth": authRequire
     }
   });
 

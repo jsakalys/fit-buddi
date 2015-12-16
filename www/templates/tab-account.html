@@ -3,16 +3,6 @@
 		<div class="list">
 
 			<div class="item item-divider">
-				My Account Info
-			</div>
-
-			<a class="item item-thumbnail-left">
-			    <img src="{{ currentAuth.password.profileImageURL }}">
-			    <h2>name: '{{ currentUser.name }}'</h2>
-			    <p>email: {{ currentAuth.password.email }}</p>
-			</a>
-
-			<div class="item item-divider">
 				My fitBuddi
 			</div>
 
@@ -20,6 +10,22 @@
 			    <img src="{{ currentAuth.password.profileImageURL }}">
 			    <h2>name: '{{ currentUser.buddi.name }}'</h2>
 			    <p>birthday: {{ buddiBirthday }}</p>
+			</a>
+			
+			<button class="button button-block" ng-click="create()">
+  				Create a New buddi
+			</button>
+
+
+			<div class="item item-divider">
+				My Account Info
+			</div>
+
+			<a class="item item-thumbnail-left">
+			    <img src="{{ currentAuth.password.profileImageURL }}">
+			    <h2>name: '{{ currentUser.name }}'</h2>
+			    <p>email: {{ currentAuth.password.email }}</p>
+			    <p>fitness points: {{ currentUser.points }}</p>
 			</a>
 
 			<button class="button button-block" ng-click="logout()">

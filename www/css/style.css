@@ -1,1 +1,26 @@
 /* Empty. Add your own CSS if you like */
+
+.tabs .tab-item .icon.home {
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-image: url('../icons/home_dark.png');
+/*	background-size: 12px;*/
+}
+
+.tabs .tab-item .icon.graph {
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-image: url('../icons/graph.png');
+/*	background-size: 12px;*/
+}
+
+.tabs .tab-item .icon.lock {
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-image: url('../icons/wrench.png');
+/*	background-size: 12px;*/
+}
+
+.heart {
+	padding: 1px;
+}

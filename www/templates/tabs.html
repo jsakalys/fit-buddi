@@ -3,41 +3,19 @@ Create tabs with an icon and label, using the tabs-positive style.
 Each tab's child <ion-nav-view> directive will have its own
 navigation history that also transitions its views in and out.
 -->
-<ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
+<ion-tabs class="tabs-striped tabs-icon-top tabs-color-active-positive">
 
-  <ion-tab title="Home" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/home">
+  <ion-tab title="Home" icon="home" href="#/tab/home">
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
-
-  <ion-tab title="Trends" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/trends">
+  <ion-tab title="Trends" icon="graph" href="#/tab/trends">
     <ion-nav-view name="tab-trends"></ion-nav-view>
   </ion-tab>
 
-
-  <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
+  <ion-tab title="Account" icon="lock" href="#/tab/account">
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>
 
-
-  <ion-tab title="Login" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/login">
-    <ion-nav-view name="login"></ion-nav-view>
-  </ion-tab>
-
 </ion-tabs>
-
-  <div class="tabs tabs-icon-left">
-    <a class="tab-item" href="#/tab/home">
-      <img src="icons/home_dark.png">
-      Home
-    </a>
-    <a class="tab-item" href="#/tab/trends">
-      <img src="icons/graph.png">
-      Trends
-    </a>
-    <a class="tab-item" href="#/tab/account">
-      <img src="icons/lock.png">
-      My Account
-    </a>
-  </div>
