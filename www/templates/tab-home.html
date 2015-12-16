@@ -1,41 +1,37 @@
 <ion-view view-title="Home">
-  <ion-content class="padding">
-    <div class="row row-top">
-      <div class="col text-left">
-        <img class="heart" ng-repeat="i in getHealth(fullHearts) track by $index" src="icons/heart_dark.png"><img class="heart" ng-repeat="i in getHealth(emptyHearts) track by $index" src="icons/heart_clear.png">
-      </div>
-      <div class="col text-center">
-        '{{ currentUser.buddi.name }}'
-      </div>
-      <div class="col text-right">
-        <i class="ion ion-happy-outline" ng-show="getMood(mood)"></i>
-        <i class="ion ion-sad-outline" ng-show="!getMood(mood)"></i>
-      </div>
-    </div>
-
-    <div class="row row-top">
-      <div class="col col-100 text-center">
-        <div>
-          PIC OF PET GOES HERE
+    <ion-content class="padding">
+        <div class="row row-top">
+            <div class="col text-left">
+                <img class="heart" ng-repeat="i in getHealth(fullHearts) track by $index" src="icons/heart_dark.png"><img class="heart" ng-repeat="i in getHealth(emptyHearts) track by $index" src="icons/heart_clear.png">
+            </div>
+            <div class="col text-center">
+            '{{ currentUser.buddi.name }}'
+            </div>
+            <div class="col text-right">
+                <i class="ion ion-happy-outline" ng-show="getMood(mood)"></i>
+                <i class="ion ion-sad-outline" ng-show="!getMood(mood)"></i>
+            </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row row-center" style="height:200px">
-      <div class="col col-80 col-offset-10">
-        <div class="item-text-wrap">
-             <typedjs strings=texttyping></typedjs>
+        <div class="row row-top">
+            <div class="col col-100 text-center">
+                <div>
+                    PIC OF PET GOES HERE
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row row-bottom">
-      <div class="col col-100 text-center">
-        <button class="button" ng-click="giveGift()">
-          <img src="icons/gift_clear.png"> Give a gift
-        </button>
-      </div>
-    </div>
-
-  </ion-content>
+        <div class="row row-center" style="height:200px">
+            <div class="col col-80 col-offset-10">
+                <div class="item-text-wrap">
+                    <typedjs strings=texttyping></typedjs>
+                </div>
+            </div>
+        </div>
+        <div class="row row-bottom">
+            <div class="col col-100 text-center">
+                <button class="button" ng-click="giveGift()">
+                    <img src="icons/gift_clear.png"> Give a gift
+                </button>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

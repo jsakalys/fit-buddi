@@ -1,4 +1,5 @@
 // The following mixin is provided by https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6
+
 // =============================================================================
 // String Replace
 // =============================================================================
@@ -63,7 +64,6 @@ $dark:                            #444 !default;
 
 // My Custom style overrides
 @include font-face('Half-Bold-Pixel-7', '../fonts/half_bold_pixel-7', null, null, 'ttf');
-@include font-face('Aldo', '../fonts/Aldo', null, null, 'ttf');
 $font-family-base: 'Half-Bold-Pixel-7';
 $font-family-sans-serif: 'Half-Bold-Pixel-7';
 $font-family-serif: 'Half-Bold-Pixel-7';

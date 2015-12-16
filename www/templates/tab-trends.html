@@ -1,9 +1,17 @@
 <ion-view view-title="Trends">
-  <ion-content class="padding">
-  <div>
-  {{ currentUser.name }}'s Stats:<br>
-  Steps Today: {{ stepsToday }}<br>
-  Step History: {{ stepHistory }}<br>
-  </div>
-  </ion-content>
+  	<ion-content class="padding">
+	  	<div class="item text-center">
+	  		{{ currentUser.name }}'s Stats:
+	  	</div>
+		<div class="list">
+			<div ng-repeat="day in stepHistory">
+				<div class="item item-divider">
+					{{ getKey(stepHistory, $index) }}
+				</div>
+				<a class="item" href="#">
+					You took {{ day.steps }} steps!
+				</a>
+		  	</div>
+		</div>
+  	</ion-content>
 </ion-view>

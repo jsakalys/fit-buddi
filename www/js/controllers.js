@@ -121,12 +121,12 @@ angular.module('fitBuddi.controllers', [])
     $scope.currentUser = user.val();
   }, function (errorObject) {
     alert("Sorry! There was an error getting your data:" + errorObject.code);
-  })
+  });
   $scope.texttyping = [
     "Hi there! ^500 Welcome to fitBuddi ^500 . ^500 . ^500 . <br> I notice this is your first time ^500 . ^500 . ^500 . <br> Before you can proceed, ^500 we need to create a buddi to help you along on your fitness journey."
   ]
   $scope.continue = function(){
-    $state.go("create");
+    $state.transitionTo("create");
   }
 }])
 
@@ -144,10 +144,12 @@ angular.module('fitBuddi.controllers', [])
     birthday: petBirthday,
     health: 3,
     mood: 'happy'
-  })
+  });
+
+  console.log("************ create text typing thing");
   $scope.texttyping = [
     "Now generating your fitBuddi ^500 . ^500 . ^500 . <br> Just a few more seconds ^500 . ^500 . ^500 . <br>  OK! ^500 . ^500 . Meet ^500 . ^500 . '" + petName + "'!"
-  ]
+  ];
   $scope.continue = function(){
     $state.go("tab.home");
   }
@@ -181,7 +183,7 @@ angular.module('fitBuddi.controllers', [])
   };
   // stepcounter.getTodayStepCount(function(success){
   //   $scope.stepsToday = success;
-  $scope.stepsToday = 1000
+    $scope.stepsToday = 1000
     if ($scope.stepsToday <= 3000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(1);
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('unhappy');
@@ -199,7 +201,7 @@ angular.module('fitBuddi.controllers', [])
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
       $scope.texttyping = [
         "Holy cow! ^500 I'd say we've put in quite a workout today! :sweat:"
-      ]
+      ];
     } else {
       $scope.texttyping = [
         "ZzzZzzzzz"
@@ -218,21 +220,28 @@ angular.module('fitBuddi.controllers', [])
   }, function (errorObject) {
     alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
-  stepcounter.getTodayStepCount(function(success){
-    $scope.stepsToday = success
-  },function(failure){
-    alert(failure)
-  });
+  $scope.stepHistory = {
+    "2015-01-01":{"offset": 123, "steps": 456},
+    "2015-01-02":{"offset": 579, "steps": 789}
+  };
+  $scope.getKey = function(obj, idx){
+    return Object.keys(obj)[idx]
+  };
+  // stepcounter.getTodayStepCount(function(success){
+  //   $scope.stepsToday = success
+  // },function(failure){
+  //   alert(failure)
+  // });
   // stepcounter.getStepCount(function(success){
   //   $scope.totalSteps = success
   // },function(failure){
   //   alert(failure)
   // });
-  stepcounter.getHistory(function(success){
-    $scope.stepHistory = JSON.stringify(success)
-  },function(failure){
-    alert(failure)
-  });
+  // stepcounter.getHistory(function(success){
+  //   $scope.stepHistory = success
+  // },function(failure){
+  //   alert(failure)
+  // });
 }])
 
 .controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
@@ -242,7 +251,8 @@ angular.module('fitBuddi.controllers', [])
   usersRef.child(currentAuth.uid).on("value", function(user){
     $scope.currentUser = user.val();
     // important! get birthday from timestamp
-    $scope.buddiBirthday = new Date($scope.currentUser.buddi.birthday);
+    var buddiBirthday = new Date($scope.currentUser.buddi.birthday);
+    $scope.buddiBirthday = buddiBirthday.toDateString();
   }, function (errorObject) {
     alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
@@ -274,7 +284,7 @@ angular.module('fitBuddi.controllers', [])
         cursorChar: " :"
       };
       $(function() {
-        $("#typed-output").typed(options);
+        $(document.getElementById("typed-output")).typed(options);
       });
     }
   };
