@@ -1,5 +1,7 @@
 <ion-view view-title="Account">
-  <ion-content  overflow-scroll="true" padding="'true'" scroll="false" class="has-header">
+  <ion-content overflow-scroll="true" padding="'true'" scroll="false" class="has-header">
+	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+  	</ion-refresher>
 		<div class="list">
 
 			<div class="item item-divider">

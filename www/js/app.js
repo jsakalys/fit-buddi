@@ -25,11 +25,15 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   });
 }])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+
+  $ionicConfigProvider.tabs.position('bottom');
+  $ionicConfigProvider.navBar.alignTitle('center');
 
   $stateProvider
 
   .state('signup', {
+    cache: false,
     url: '/signup',
     templateUrl: 'templates/signup.html',
     controller: 'SignupCtrl',
@@ -39,6 +43,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('login', {
+    cache: false,
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl',
@@ -48,6 +53,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('start', {
+    cache: false,
     url: '/start',
     templateUrl: 'templates/start.html',
     controller: 'StartCtrl',
@@ -57,6 +63,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('create', {
+    cache: false,
     url: '/create',
     templateUrl: 'templates/create.html',
     controller: 'CreateCtrl',
@@ -66,6 +73,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('tab', {
+    cache: false,
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html',
@@ -75,6 +83,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('tab.home', {
+    cache: false,
     url: '/home',
     views: {
       'tab-home': {
@@ -88,6 +97,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('tab.trends', {
+      cache: false,
       url: '/trends',
       views: {
         'tab-trends': {
@@ -101,6 +111,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   })
 
   .state('tab.account', {
+    cache: false,
     url: '/account',
     views: {
       'tab-account': {

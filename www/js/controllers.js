@@ -9,7 +9,7 @@ angular.module('fitBuddi.controllers', [])
     } else {
       console.log("Logged in as", authData.uid);
       // get current user info
-      usersRef.child(currentAuth.uid).on("value", function(user){
+      usersRef.child(authData.uid).on("value", function(user){
         $scope.currentUser = user.val();
       }, function (errorObject) {
         alert("Sorry! There was an error getting your data:" + errorObject.code);
@@ -31,7 +31,7 @@ angular.module('fitBuddi.controllers', [])
       password: $scope.user.password,
     }, function(error, userData) {
       if (error) {
-        console.log("Error creating user:", error);
+        alert("Error creating user:", error);
       } else {
         console.log("Successfully created user account with uid:", userData.uid);
         // log in the new user
@@ -40,7 +40,7 @@ angular.module('fitBuddi.controllers', [])
           password: $scope.user.password
         }, function(error, authData) {
           if (error) {
-            console.log("Login Failed!", error);
+            alert("Login Failed!", error);
           } else {
             console.log("Authenticated successfully with payload:", authData);
             if (authData) {
@@ -71,7 +71,7 @@ angular.module('fitBuddi.controllers', [])
     } else {
       console.log("Logged in as", authData.uid);
       // get current user info
-      usersRef.child(currentAuth.uid).on("value", function(user){
+      usersRef.child(authData.uid).on("value", function(user){
         $scope.currentUser = user.val();
       }, function (errorObject){
         alert("Sorry! There was an error getting your data:" + errorObject.code);
@@ -121,7 +121,7 @@ angular.module('fitBuddi.controllers', [])
     $scope.currentUser = user.val();
   }, function (errorObject) {
     alert("Sorry! There was an error getting your data:" + errorObject.code);
-  });
+  })
   $scope.texttyping = [
     "Hi there! ^500 Welcome to fitBuddi ^500 . ^500 . ^500 . <br> I notice this is your first time ^500 . ^500 . ^500 . <br> Before you can proceed, ^500 we need to create a buddi to help you along on your fitness journey."
   ]
@@ -132,12 +132,6 @@ angular.module('fitBuddi.controllers', [])
 
 .controller('CreateCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-  // get current user info
-  usersRef.child(currentAuth.uid).on("value", function(user){
-    $scope.currentUser = user.val();
-  }, function (errorObject) {
-    alert("Sorry! There was an error getting your data:" + errorObject.code);
-  });
   var randomNames = [
     "Bubbles", "Lupin", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
   ]
@@ -150,7 +144,7 @@ angular.module('fitBuddi.controllers', [])
     birthday: petBirthday,
     health: 3,
     mood: 'happy'
-  });
+  })
   $scope.texttyping = [
     "Now generating your fitBuddi ^500 . ^500 . ^500 . <br> Just a few more seconds ^500 . ^500 . ^500 . <br>  OK! ^500 . ^500 . Meet ^500 . ^500 . '" + petName + "'!"
   ]

@@ -17,11 +17,11 @@ $dark:                            #444 !default;
 */
 @font-face {
   font-family: "Half-Bold-Pixel-7";
-  src: url("../fonts/half_bold_pixel-7.eot?") format("eot"), url("../fonts/half_bold_pixel-7.woff2") format("woff2"), url("../fonts/half_bold_pixel-7.woff") format("woff"), url("../fonts/half_bold_pixel-7.ttf") format("truetype"), url("../fonts/half_bold_pixel-7.svg#Half-Bold-Pixel-7") format("svg"); }
+  src: url("../fonts/half_bold_pixel-7.ttf") format("truetype"); }
 
 @font-face {
   font-family: "Aldo";
-  src: url("../fonts/Aldo.eot?") format("eot"), url("../fonts/Aldo.woff2") format("woff2"), url("../fonts/Aldo.woff") format("woff"), url("../fonts/Aldo.ttf") format("truetype"), url("../fonts/Aldo.svg#Aldo") format("svg"); }
+  src: url("../fonts/Aldo.ttf") format("truetype"); }
 
 /*!
   Ionicons, v2.0.1

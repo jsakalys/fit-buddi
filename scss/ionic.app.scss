@@ -62,8 +62,8 @@ $dark:                            #444 !default;
 */
 
 // My Custom style overrides
-@include font-face('Half-Bold-Pixel-7', '../fonts/half_bold_pixel-7');
-@include font-face('Aldo', '../fonts/Aldo')
+@include font-face('Half-Bold-Pixel-7', '../fonts/half_bold_pixel-7', null, null, 'ttf');
+@include font-face('Aldo', '../fonts/Aldo', null, null, 'ttf');
 $font-family-base: 'Half-Bold-Pixel-7';
 $font-family-sans-serif: 'Half-Bold-Pixel-7';
 $font-family-serif: 'Half-Bold-Pixel-7';
