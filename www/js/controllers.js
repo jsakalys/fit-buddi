@@ -123,40 +123,72 @@ angular.module('fitBuddi.controllers', [])
     alert("Sorry! There was an error getting your data:" + errorObject.code);
   });
   $scope.texttyping = [
-    "Hi there! ^500 Welcome to fitBuddi ^500 . ^500 . ^500 . <br> I notice this is your first time ^500 . ^500 . ^500 . <br> Before you can proceed, ^500 we need to create a buddi to help you along on your fitness journey."
+    "Hi there! ^500Welcome to fitBuddi^500.^500.^500.^1000<br>I see that this is your first time^500.^500.^500.^1000<br>Before you can proceed, ^500we need to create a buddi to help you along on your fitness journey."
   ]
+  $(function() {
+    $(document.getElementById("start-text")).typed({
+      strings: $scope.texttyping,
+      typeSpeed: 20,
+      startDelay: 1000,
+      contentType: "html",
+      showCursor: false,
+      backDelay: 1000,
+      backSpeed: 0,
+      cursorChar: " :"
+    });
+  });
   $scope.continue = function(){
     $state.transitionTo("create");
   };
 }])
 
 .controller('CreateCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
-  var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-  var randomNames = [
-    "Bubbles", "Bubba", "Lupin", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
-  ]
-  var petName = randomNames[Math.floor(Math.random() * 10)];
-  var today = new Date();
-  var petBirthday = today.getTime();
-  // create new pet under user
-  usersRef.child(currentAuth.uid).child('buddi').set({
-    name: petName,
-    birthday: petBirthday,
-    health: 3,
-    mood: 'happy'
+  $scope.$on('$ionicView.beforeEnter', function(){
+    var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+    var randomNames = [
+      "Bubbles", "Bubba", "Lupin", "Olly", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
+    ]
+    var petName = randomNames[Math.floor(Math.random() * 12)];
+    var today = new Date();
+    var petBirthday = today.getTime();
+    // create new pet under user
+    usersRef.child(currentAuth.uid).child('buddi').set({
+      name: petName,
+      birthday: petBirthday,
+      health: 3,
+      mood: 'happy'
+    });
+    // get username and run script
+    usersRef.child(currentAuth.uid).on("value", function(user){
+      $scope.currentUser = user.val();
+      $scope.texttyping = [
+      "Now generating your personal fitness companion^500.^500.^500.^1000<br>It should only be a few more seconds^500.^500.^500.^1000<br>All done! ^1000" + $scope.currentUser.name  + ",^500 meet^500 '" + petName + "'!"
+      ];
+      $(function() {
+        $(document.getElementById("create-text")).typed({
+          strings: $scope.texttyping,
+          typeSpeed: 20,
+          startDelay: 1000,
+          contentType: "html",
+          showCursor: false,
+          backDelay: 1000,
+          backSpeed: 0,
+          cursorChar: " :"
+        });
+      });
+    }, function (errorObject) {
+      alert("Sorry! There was an error getting your data:" + errorObject.code);
+    });
+    $scope.continue = function(){
+      $state.go("tab.home");
+    };
   });
-  $scope.texttyping = [
-    "Now generating your fitBuddi ^500 . ^500 . ^500 . <br> Just a few more seconds ^500 . ^500 . ^500 . <br>  OK! ^500 . ^500 . Meet ^500 . ^500 . '" + petName + "'!"
-  ];
-  $scope.continue = function(){
-    $state.go("tab.home");
-  };
 }])
 
 .controller('HomeCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
-  // $scope.$on('$ionicView.afterEnter', function(){
+  $scope.$on('$ionicView.beforeEnter', function(){
+    // get current user and buddi info
     var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-    // get current user info
     usersRef.child(currentAuth.uid).on("value", function(user){
       $scope.currentUser = user.val();
       $scope.fullHearts = $scope.currentUser.buddi.health;
@@ -180,43 +212,32 @@ angular.module('fitBuddi.controllers', [])
         'happy'
       );
     };
-    $(function() {
-      $('#pet').sprite({fps: 4, no_of_frames: 7});
-      $('#pet').isDraggable({
-        start: function() {
-        },
-        stop: function() {
-          $('#pet').spState(7);
-        },
-        drag: function() {
-          $('#pet').spState(4);
-        }
-      });
-    });
-    stepcounter.getTodayStepCount(function(success){
-      alert(success);
-      stepsToday = success;
-      // stepsToday = 8000
-      if (stepsToday < 1000) {
+    // get step data and execute appropriate script
+    // $scope.stepsToday = null;
+    // stepcounter.getTodayStepCount(function(success){
+    //   alert(success);
+    //   $scope.stepsToday = success;
+      $scope.stepsToday = 8000
+      if ($scope.stepsToday < 1000) {
         $('#pet').spState(1);
         $scope.texttyping = [
           "Zzz^500.^500.^500.^500 Zzzzzz.^500.^500.^500"
         ]
-      } else if (stepsToday < 5000) {
+      } else if ($scope.stepsToday < 5000) {
         usersRef.child(currentAuth.uid).child('buddi').child('health').set(1);
         usersRef.child(currentAuth.uid).child('buddi').child('mood').set('unhappy');
         $('#pet').spState(5);
         $scope.texttyping = [
           "Hey! ^500 I noticed you haven't walked that much today yet^500.^500.^500.^1000 How about we go outside and see the sights?"
         ]
-      } else if (stepsToday < 10000) {
+      } else if ($scope.stepsToday < 10000) {
         usersRef.child(currentAuth.uid).child('buddi').child('health').set(2);
         usersRef.child(currentAuth.uid).child('buddi').child('mood').set('stable');
         $('#pet').spState(6);
         $scope.texttyping = [
           "Wow! ^500.^500.^500.^500You've walked quite a bit today.^1000 Let's see if we can get to 10,000 steps!"
         ]
-      } else if (stepsToday >= 10000) {
+      } else if ($scope.stepsToday >= 10000) {
         usersRef.child(currentAuth.uid).child('buddi').child('health').set(3);
         usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
         $('#pet').spState(3);
@@ -229,16 +250,39 @@ angular.module('fitBuddi.controllers', [])
           "Zzz^500.^500.^500.^500 Zzzzzz.^500.^500.^500"
         ]
       }
-    },function(failure){
-      alert(failure)
-    });
-  // });
+      $(function() {
+        $(document.getElementById("typed-output")).typed({
+          strings: $scope.texttyping,
+          typeSpeed: 20,
+          startDelay: 1000,
+          contentType: "html",
+          showCursor: false,
+          backDelay: 1000,
+          backSpeed: 0,
+          cursorChar: " :"
+        });
+        $('#pet').sprite({fps: 4, no_of_frames: 7});
+        $('#pet').isDraggable({
+          start: function() {
+          },
+          stop: function() {
+            $('#pet').spState(7);
+          },
+          drag: function() {
+            $('#pet').spState(4);
+          }
+        });
+      });
+    // },function(failure){
+    //   alert(failure)
+    // });
+  });
 }])
 
 .controller('StatsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
-  $scope.$on('$ionicView.afterEnter', function(){
-    var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+  $scope.$on('$ionicView.beforeEnter', function(){
     // get current user info
+    var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
     usersRef.child(currentAuth.uid).on("value", function(user){
       $scope.currentUser = user.val();
     }, function (errorObject) {
@@ -256,12 +300,13 @@ angular.module('fitBuddi.controllers', [])
     //   "2015-01-09":{"offset": 579, "steps": 3454},
     //   "2015-01-10":{"offset": 579, "steps": 1233}
     // };
+    // function to get date from step history
     $scope.getKey = function(obj, idx){
       return Object.keys(obj)[idx]
     };
+    // get step history and create bar chart/list data
     stepcounter.getHistory(function(success){
-      $scope.stepHistory = success
-      // *bar chart stuff* //
+      $scope.stepHistory = success;
       var stepLabels = [];
       var stepData = [];
       var dataLimit = 7;
@@ -272,7 +317,7 @@ angular.module('fitBuddi.controllers', [])
         } else {
           stepLabels.push(key);
           stepData.push(data.steps);
-          i++
+          i++;
         }
       });
       var data = {
@@ -311,54 +356,30 @@ angular.module('fitBuddi.controllers', [])
       var ctx = document.getElementById("stepChart").getContext("2d");
       var stepChart = new Chart(ctx).Bar(data, options);
     },function(failure){
-      alert(failure)
+      alert(failure);
     });
   });
 }])
 
 .controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
-  var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-  // get current user info
-  $scope.currentAuth = currentAuth;
-  usersRef.child(currentAuth.uid).on("value", function(user){
-    $scope.currentUser = user.val();
-    // important! get birthday from timestamp
-    var buddiBirthday = new Date($scope.currentUser.buddi.birthday);
-    $scope.buddiBirthday = buddiBirthday.toDateString();
-  }, function (errorObject) {
-    alert("Sorry! There was an error getting your data:" + errorObject.code);
+  $scope.$on('$ionicView.beforeEnter', function(){
+    // get current user info
+    var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+    $scope.currentAuth = currentAuth;
+    usersRef.child(currentAuth.uid).on("value", function(user){
+      $scope.currentUser = user.val();
+      // important! get birthday from timestamp
+      var buddiBirthday = new Date($scope.currentUser.buddi.birthday);
+      $scope.buddiBirthday = buddiBirthday.toDateString();
+    }, function (errorObject) {
+      alert("Sorry! There was an error getting your data:" + errorObject.code);
+    });
+    $scope.logout = function(){
+      usersRef.unauth();
+      $state.go("login");
+    };
+    $scope.create = function(){
+      $state.go("create");
+    };
   });
-  $scope.logout = function(){
-    usersRef.unauth();
-    $state.go("login");
-  };
-  $scope.create = function(){
-    $state.go("create");
-  };
 }])
-
-.directive('typedjs', function(){
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      strings: '='
-    },
-    template: '<span id="typed-output"></span>',
-    link: function($scope, $element, $attrs){
-      var options = {
-        strings: $scope.strings,
-        typeSpeed: 20,
-        startDelay: 1000,
-        contentType: "html",
-        showCursor: false,
-        backDelay: 1000,
-        backSpeed: 0,
-        cursorChar: " :"
-      };
-      $(function() {
-        $(document.getElementById("typed-output")).typed(options);
-      });
-    }
-  };
-});

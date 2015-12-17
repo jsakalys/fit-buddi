@@ -14,14 +14,21 @@
             </div>
         </div>
         <div class="row row-top">
+            <div class="col text-center">
+                 Steps today:
+                 <br>
+                 {{ stepsToday }}
+            </div>
+        </div>
+        <div class="row row-top">
             <div class="col col-50 col-offset-25 text-center">
                 <div id="pet"></div>
             </div>
         </div>
-        <div class="row row-top" style="height:200px">
+        <div class="row row-top" style="height:150px">
             <div class="col col-80 col-offset-10">
                 <div class="item-text-wrap">
-                    <typedjs strings=texttyping></typedjs>
+                    <span id="typed-output"></span>
                 </div>
             </div>
         </div>
