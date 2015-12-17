@@ -133,7 +133,7 @@ angular.module('fitBuddi.controllers', [])
 .controller('CreateCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
   var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
   var randomNames = [
-    "Bubbles", "Lupin", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
+    "Bubbles", "Bubba", "Lupin", "Kip", "Screech", "Lenny", "Hedwig", "Snoop", "Luffy", "Max", "Ori"
   ]
   var petName = randomNames[Math.floor(Math.random() * 10)];
   var today = new Date();
@@ -162,7 +162,7 @@ angular.module('fitBuddi.controllers', [])
       return new Array(num);   
     };
     $scope.getMood = function(mood){
-      if (mood == 'happy') {
+      if (mood == $scope.mood) {
         return true;
       } else {
         return false;
@@ -179,35 +179,55 @@ angular.module('fitBuddi.controllers', [])
       'happy'
     );
   };
-  // stepcounter.getTodayStepCount(function(success){
-  //   $scope.stepsToday = success;
-    $scope.stepsToday = 5000
-    if ($scope.stepsToday < 5000) {
+  $('#pet').sprite({fps: 4, no_of_frames: 7});
+  $('#pet').isDraggable({
+    start: function() {
+    },
+    stop: function() {
+      $('#pet').spState(7);
+    },
+    drag: function() {
+      $('#pet').spState(4);
+    }
+  });
+  stepcounter.getTodayStepCount(function(success){
+    $scope.stepsToday = success;
+    // $scope.stepsToday = 8000
+    if ($scope.stepsToday < 1000) {
+      $('#pet').spState(1);
+      $scope.texttyping = [
+        "Zzz^500.^500.^500.^500 Zzzzzz.^500.^500.^500"
+      ]
+    } else if ($scope.stepsToday < 5000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(1);
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('unhappy');
+      $('#pet').spState(5);
       $scope.texttyping = [
         "Hey! ^500 I noticed you haven't walked that much today yet^500.^500.^500.^500<br>How about we go outside and see the sights?"
       ]
     } else if ($scope.stepsToday < 10000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(2);
-      usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
+      usersRef.child(currentAuth.uid).child('buddi').child('mood').set('stable');
+      $('#pet').spState(6);
       $scope.texttyping = [
         "Wow! ^500.^500.^500.^500You've walked quite a bit today.^1000<br>Let's see if we can get to 10,000 steps!"
       ]
     } else if ($scope.stepsToday >= 10000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(3);
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
+      $('#pet').spState(3);
       $scope.texttyping = [
         "Holy cow! ^500 I'd say we've put in quite a workout today! :sweat:"
       ];
     } else {
+      $('#pet').spState(1);
       $scope.texttyping = [
-        "ZzzZzzzzz"
+        "Zzz^500.^500.^500.^500 Zzzzzz.^500.^500.^500"
       ]
     }
-  // },function(failure){
-  //   alert(failure)
-  // });
+  },function(failure){
+    alert(failure)
+  });
 }])
 
 .controller('StatsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
@@ -342,9 +362,9 @@ angular.module('fitBuddi.controllers', [])
         backSpeed: 0,
         cursorChar: " :"
       };
-      $(function() {
+     // $(function() {
         $(document.getElementById("typed-output")).typed(options);
-      });
+      //});
     }
   };
 });

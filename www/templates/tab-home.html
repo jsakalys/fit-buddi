@@ -1,6 +1,6 @@
 <ion-view view-title="Home">
     <ion-content class="padding">
-        <div class="row row-top">
+        <div class="row row-center">
             <div class="col text-left">
                 <img class="heart" ng-repeat="i in getHealth(fullHearts) track by $index" src="icons/heart_dark.png"><img class="heart" ng-repeat="i in getHealth(emptyHearts) track by $index" src="icons/heart_clear.png">
             </div>
@@ -8,25 +8,24 @@
             '{{ currentUser.buddi.name }}'
             </div>
             <div class="col text-right">
-                <i class="ion ion-happy-outline" ng-show="getMood(mood)"></i>
-                <i class="ion ion-sad-outline" ng-show="!getMood(mood)"></i>
+                <img src="img/pet_happy.png" ng-show="getMood('happy')"></i>
+                <img src="img/pet_stable.png" ng-show="getMood('stable')"></i>
+                <img src="img/pet_sad.png" ng-show="getMood('unhappy')"></i>
             </div>
         </div>
         <div class="row row-top">
-            <div class="col col-100 text-center">
-                <div>
-                    PIC OF PET GOES HERE
-                </div>
+            <div class="col col-50 col-offset-25 text-center">
+                <div id="pet"></div>
             </div>
         </div>
-        <div class="row row-center" style="height:200px">
+        <div class="row row-top" style="height:200px">
             <div class="col col-80 col-offset-10">
                 <div class="item-text-wrap">
                     <typedjs strings=texttyping></typedjs>
                 </div>
             </div>
         </div>
-        <div class="row row-bottom">
+        <div class="row row-top">
             <div class="col col-100 text-center">
                 <button class="button" ng-click="giveGift()">
                     <img src="icons/gift_clear.png"> Give a gift

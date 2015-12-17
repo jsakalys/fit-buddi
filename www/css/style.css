@@ -22,3 +22,12 @@
 .heart {
 	padding: 1px;
 }
+
+#pet {
+	width: 24px;
+	height: 48px;
+	margin: auto;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	background-image: url('../img/pet_sheet.png');
+}
