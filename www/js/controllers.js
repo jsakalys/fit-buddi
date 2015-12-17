@@ -127,7 +127,7 @@ angular.module('fitBuddi.controllers', [])
   ]
   $scope.continue = function(){
     $state.transitionTo("create");
-  }
+  };
 }])
 
 .controller('CreateCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
@@ -145,14 +145,12 @@ angular.module('fitBuddi.controllers', [])
     health: 3,
     mood: 'happy'
   });
-
-  console.log("************ create text typing thing");
   $scope.texttyping = [
     "Now generating your fitBuddi ^500 . ^500 . ^500 . <br> Just a few more seconds ^500 . ^500 . ^500 . <br>  OK! ^500 . ^500 . Meet ^500 . ^500 . '" + petName + "'!"
   ];
   $scope.continue = function(){
     $state.go("tab.home");
-  }
+  };
 }])
 
 .controller('HomeCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
@@ -183,18 +181,18 @@ angular.module('fitBuddi.controllers', [])
   };
   // stepcounter.getTodayStepCount(function(success){
   //   $scope.stepsToday = success;
-    $scope.stepsToday = 1000
-    if ($scope.stepsToday <= 3000) {
+    $scope.stepsToday = 5000
+    if ($scope.stepsToday < 5000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(1);
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('unhappy');
       $scope.texttyping = [
-        "Hey! ^500 I noticed you haven't walked that much today yet ^500 . ^500 . ^500 . <br> How about we go outside and see the sights?"
+        "Hey! ^500 I noticed you haven't walked that much today yet^500.^500.^500.^500<br>How about we go outside and see the sights?"
       ]
-    } else if ($scope.stepsToday <= 5000) {
+    } else if ($scope.stepsToday < 10000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(2);
       usersRef.child(currentAuth.uid).child('buddi').child('mood').set('happy');
       $scope.texttyping = [
-        "Wow! ^500 . ^500 . ^500 you've walked quite a bit today ^500 . ^500 . ^500 . <br> Let's see if we can get to 1000 steps!"
+        "Wow! ^500.^500.^500.^500You've walked quite a bit today.^1000<br>Let's see if we can get to 10,000 steps!"
       ]
     } else if ($scope.stepsToday >= 10000) {
       usersRef.child(currentAuth.uid).child('buddi').child('health').set(3);
@@ -212,36 +210,96 @@ angular.module('fitBuddi.controllers', [])
   // });
 }])
 
-.controller('TrendsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
-  var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
-  // get current user info
-  usersRef.child(currentAuth.uid).on("value", function(user){
-    $scope.currentUser = user.val();
-  }, function (errorObject) {
-    alert("Sorry! There was an error getting your data:" + errorObject.code);
+.controller('StatsCtrl', ['$scope', 'currentAuth', function($scope, currentAuth){
+  $scope.$on('$ionicView.afterEnter', function(){
+    var usersRef = new Firebase("https://fitbuddi.firebaseio.com/users");
+    // get current user info
+    usersRef.child(currentAuth.uid).on("value", function(user){
+      $scope.currentUser = user.val();
+    }, function (errorObject) {
+      alert("Sorry! There was an error getting your data:" + errorObject.code);
+    });
+    $scope.stepHistory = {
+      "2015-01-01":{"offset": 123, "steps": 456},
+      "2015-01-02":{"offset": 579, "steps": 789},
+      "2015-01-03":{"offset": 579, "steps": 1034},
+      "2015-01-04":{"offset": 579, "steps": 2345},
+      "2015-01-05":{"offset": 579, "steps": 456},
+      "2015-01-06":{"offset": 579, "steps": 788},
+      "2015-01-07":{"offset": 579, "steps": 3645},
+      "2015-01-08":{"offset": 579, "steps": 5678},
+      "2015-01-09":{"offset": 579, "steps": 3454},
+      "2015-01-10":{"offset": 579, "steps": 1233}
+    };
+    $scope.getKey = function(obj, idx){
+      return Object.keys(obj)[idx]
+    };
+    // stepcounter.getTodayStepCount(function(success){
+    //   $scope.stepsToday = success
+    // },function(failure){
+    //   alert(failure)
+    // });
+    // stepcounter.getStepCount(function(success){
+    //   $scope.totalSteps = success
+    // },function(failure){
+    //   alert(failure)
+    // });
+    // stepcounter.getHistory(function(success){
+    //   $scope.stepHistory = success
+    // },function(failure){
+    //   alert(failure)
+    // });
+    // *bar chart stuff* //
+    var stepLabels = [];
+    var stepData = [];
+    var dataLimit = 7;
+    var i = 0;
+    angular.forEach($scope.stepHistory, function(data, key){
+      if (i == dataLimit) {
+        return;
+      } else {
+        stepLabels.push(key);
+        stepData.push(data.steps);
+        i++
+      }
+    });
+    
+    var data = {
+      labels: stepLabels,
+      datasets: [
+        {
+          label: "My First dataset",
+          fillColor: "rgba(220,220,220,0.5)",
+          strokeColor: "rgba(220,220,220,0.8)",
+          highlightFill: "rgba(220,220,220,0.75)",
+          highlightStroke: "rgba(220,220,220,1)",
+          data: stepData
+        }
+      ]
+    };
+    var options = {
+      scaleBeginAtZero : true,
+      scaleShowGridLines : false,
+      scaleGridLineColor : "rgba(0,0,0,.05)",
+      scaleGridLineWidth : 1,
+      scaleShowHorizontalLines: true,
+      scaleShowVerticalLines: true,
+      scaleFontSize: 10,
+      scaleFontFamily: 'Half-Bold-Pixel-7',
+      scaleLineWidth: 0,
+      tooltipFontFamily: 'Half-Bold-Pixel-7',
+      tooltipFontSize: 10,
+      tooltipFontStyle: 'normal',
+      responsive: true,
+      barShowStroke : false,
+      barStrokeWidth : 1,
+      barValueSpacing : 2,
+      barDatasetSpacing : 1,
+      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+    };
+    var ctx = document.getElementById("stepChart").getContext("2d");
+    var stepChart = new Chart(ctx).Bar(data, options);
   });
-  $scope.stepHistory = {
-    "2015-01-01":{"offset": 123, "steps": 456},
-    "2015-01-02":{"offset": 579, "steps": 789}
-  };
-  $scope.getKey = function(obj, idx){
-    return Object.keys(obj)[idx]
-  };
-  // stepcounter.getTodayStepCount(function(success){
-  //   $scope.stepsToday = success
-  // },function(failure){
-  //   alert(failure)
-  // });
-  // stepcounter.getStepCount(function(success){
-  //   $scope.totalSteps = success
-  // },function(failure){
-  //   alert(failure)
-  // });
-  // stepcounter.getHistory(function(success){
-  //   $scope.stepHistory = success
-  // },function(failure){
-  //   alert(failure)
-  // });
 }])
 
 .controller('AccountCtrl', ['$scope', 'currentAuth', '$state', function($scope, currentAuth, $state){
@@ -268,6 +326,7 @@ angular.module('fitBuddi.controllers', [])
 .directive('typedjs', function(){
   return {
     restrict: 'E',
+    replace: true,
     scope: {
       strings: '='
     },

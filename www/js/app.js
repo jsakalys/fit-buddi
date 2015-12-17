@@ -98,11 +98,11 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
 
   .state('tab.trends', {
       cache: false,
-      url: '/trends',
+      url: '/stats',
       views: {
-        'tab-trends': {
-          templateUrl: 'templates/tab-trends.html',
-          controller: 'TrendsCtrl'
+        'tab-stats': {
+          templateUrl: 'templates/tab-stats.html',
+          controller: 'StatsCtrl'
         }
       },
       resolve: {

@@ -1,11 +1,15 @@
-<ion-view view-title="Trends">
+<ion-view view-title="Stats">
   	<ion-content class="padding">
+  		<div class="text-center">
+  			<canvas id="stepChart" width="300" height="200"></canvas>
+  		</div>
 	  	<div class="item text-center">
-	  		{{ currentUser.name }}'s Stats:
+	  		{{ currentUser.name }}'s Step History:
 	  	</div>
 		<div class="list">
 			<div ng-repeat="day in stepHistory">
 				<div class="item item-divider">
+					<img src="icons/calendar.png">
 					{{ getKey(stepHistory, $index) }}
 				</div>
 				<a class="item" href="#">
