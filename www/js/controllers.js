@@ -215,7 +215,7 @@ angular.module('fitBuddi.controllers', [])
     // get step data and execute appropriate script
     stepcounter.getTodayStepCount(function(success){
       $scope.stepsToday = success;
-      // $scope.stepsToday = 8000
+      // $scope.stepsToday = 11000
       if ($scope.stepsToday < 1000) {
         $('#pet').spState(1);
         $scope.texttyping = [
