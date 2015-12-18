@@ -53,4 +53,5 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 ### Known Issues
 * Login with facebook will bring you back to the home panel, and user data will be empty
 * On first open of the app, data will not load. It only loads if you switch between tabs to refresh the page.
+* Buddy is not draggable in Android, but drag and drop animations are functional.
 

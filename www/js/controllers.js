@@ -212,6 +212,12 @@ angular.module('fitBuddi.controllers', [])
         'happy'
       );
     };
+    $scope.dragBuddi = function(){
+      $('#pet').spState(4);
+    };
+    $scope.releaseBuddi = function(){
+      $('#pet').spState(7);
+    };
     // get step data and execute appropriate script
     stepcounter.getTodayStepCount(function(success){
       $scope.stepsToday = success;
