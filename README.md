@@ -1,14 +1,17 @@
 ## FitBuddi
 ### for Android OS (Available on Google Play soon)
 
-===
-
 FitBuddi is a virtual pet that doubles as a fitness companion. Based on how many steps you take in a day, your fitBuddi's health will be high or low, giving users a visual representation of their own condition. Your fitBuddi will react and respond to you based on how active you are throughout the day, and will verbally reward you for a higher activity level.
 
 FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number of other JavaScript libraries/plugins listed below. It uses Firebase and AngularFire for storing and querying data.
 
 ##### Note: This app only works with Android KitKat (4.4 or higher).
 
+### Screenshots
+
+![FitBuddi Home](/www/img/screenshot_buddi.png)
+![FitBuddi History](/www/img/screenshot_history.png)
+![FitBuddi Account](/www/img/screenshot_account.png)
 
 ### Features
 * View recent step history as a log and bar graph
@@ -45,4 +48,8 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 * [AngularFire](http://www.firebase.com/docs/web/libraries/angular/)
 * [This](http://po-fora.deviantart.com/art/Free-Cry-Pet-Update-1-5-469253593/) sprite resource from DeviantArt
 * [GIMP](https://www.gimp.org/) (for creating sprite sheets)
+
+### Known Issues
+* Login with facebook will bring you back to the home panel, and user data will be empty
+* On first open of the app, data will not load. It only loads if you switch between tabs to refresh the page.
 
