@@ -219,9 +219,9 @@ angular.module('fitBuddi.controllers', [])
       $('#pet').spState(7);
     };
     // get step data and execute appropriate script
-    stepcounter.getTodayStepCount(function(success){
-      $scope.stepsToday = success;
-      // $scope.stepsToday = 11000
+    // stepcounter.getTodayStepCount(function(success){
+    //   $scope.stepsToday = success;
+      $scope.stepsToday = 8000
       if ($scope.stepsToday < 1000) {
         $('#pet').spState(1);
         $scope.texttyping = [
@@ -277,9 +277,9 @@ angular.module('fitBuddi.controllers', [])
           }
         });
       });
-    },function(failure){
-      alert(failure)
-    });
+    // },function(failure){
+    //   alert(failure)
+    // });
   });
 }])
 
@@ -292,24 +292,24 @@ angular.module('fitBuddi.controllers', [])
     }, function (errorObject) {
       alert("Sorry! There was an error getting your data:" + errorObject.code);
     });
-    // $scope.stepHistory = { // sample data
-    //   "2015-01-01":{"offset": 123, "steps": 456},
-    //   "2015-01-02":{"offset": 579, "steps": 789},
-    //   "2015-01-03":{"offset": 579, "steps": 1034},
-    //   "2015-01-04":{"offset": 579, "steps": 2345},
-    //   "2015-01-05":{"offset": 579, "steps": 456},
-    //   "2015-01-06":{"offset": 579, "steps": 788},
-    //   "2015-01-07":{"offset": 579, "steps": 3645},
-    //   "2015-01-08":{"offset": 579, "steps": 5678},
-    //   "2015-01-09":{"offset": 579, "steps": 3454},
-    //   "2015-01-10":{"offset": 579, "steps": 1233}
-    // };
+    $scope.stepHistory = { // sample data
+      "2015-01-01":{"offset": 123, "steps": 456},
+      "2015-01-02":{"offset": 579, "steps": 789},
+      "2015-01-03":{"offset": 579, "steps": 1034},
+      "2015-01-04":{"offset": 579, "steps": 2345},
+      "2015-01-05":{"offset": 579, "steps": 456},
+      "2015-01-06":{"offset": 579, "steps": 788},
+      "2015-01-07":{"offset": 579, "steps": 3645},
+      "2015-01-08":{"offset": 579, "steps": 5678},
+      "2015-01-09":{"offset": 579, "steps": 3454},
+      "2015-01-10":{"offset": 579, "steps": 1233}
+    };
     // function to get date from step history
     $scope.getKey = function(obj, idx){
       return Object.keys(obj)[idx]
     };
     // get step history and create bar chart/list data
-    stepcounter.getHistory(function(success){
+    // stepcounter.getHistory(function(success){
       $scope.stepHistory = success;
       var stepLabels = [];
       var stepData = [];
@@ -359,9 +359,9 @@ angular.module('fitBuddi.controllers', [])
       };
       var ctx = document.getElementById("stepChart").getContext("2d");
       var stepChart = new Chart(ctx).Bar(data, options);
-    },function(failure){
-      alert(failure);
-    });
+    // },function(failure){
+    //   alert(failure);
+    // });
   });
 }])
 
