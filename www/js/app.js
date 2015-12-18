@@ -17,8 +17,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     }
   });
   $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
-    // We can catch the error thrown when the $requireAuth promise is rejected
-    // and redirect the user back to the home page
+    // catch the error thrown when the $requireAuth promise is rejected and redirect user back to the home page
     if (error === "AUTH_REQUIRED") {
       $state.go("login");
     }
@@ -125,6 +124,6 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/tab');
 
 });

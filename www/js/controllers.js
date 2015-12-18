@@ -213,11 +213,10 @@ angular.module('fitBuddi.controllers', [])
       );
     };
     // get step data and execute appropriate script
-    // $scope.stepsToday = null;
-    // stepcounter.getTodayStepCount(function(success){
-    //   alert(success);
-    //   $scope.stepsToday = success;
-      $scope.stepsToday = 8000
+    stepcounter.getTodayStepCount(function(success){
+      alert(success);
+      $scope.stepsToday = success;
+      // $scope.stepsToday = 8000
       if ($scope.stepsToday < 1000) {
         $('#pet').spState(1);
         $scope.texttyping = [
@@ -273,9 +272,9 @@ angular.module('fitBuddi.controllers', [])
           }
         });
       });
-    // },function(failure){
-    //   alert(failure)
-    // });
+    },function(failure){
+      alert(failure)
+    });
   });
 }])
 
