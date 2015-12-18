@@ -12,6 +12,8 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 ![FitBuddi Home](/www/img/screenshot_buddi.png)
 ![FitBuddi History](/www/img/screenshot_history.png)
 ![FitBuddi Account](/www/img/screenshot_account.png)
+![FitBuddi Account](/www/img/screenshot_login.png)
+![FitBuddi Account](/www/img/screenshot_signup.png)
 
 ### Features
 * View recent step history as a log and bar graph
