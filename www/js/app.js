@@ -95,7 +95,7 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
     }
   })
 
-  .state('tab.trends', {
+  .state('tab.stats', {
       cache: false,
       url: '/stats',
       views: {
@@ -124,6 +124,6 @@ angular.module('fitBuddi', ['ionic', 'firebase', 'fitBuddi.controllers', 'fitBud
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab');
+  $urlRouterProvider.otherwise('/tab/account');
 
 });
