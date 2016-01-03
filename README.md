@@ -9,8 +9,8 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 
 ### Screenshots
 
-<img src="www/img/screenshot_signup.png" width="240">
 <img src="www/img/screenshot_login.png" width="240">
+<img src="www/img/screenshot_signup.png" width="240">
 <img src="www/img/screenshot_account.png" width="240">
 <img src="www/img/screenshot_buddi.png" width="240">
 <img src="www/img/screenshot_history.png" width="240">
