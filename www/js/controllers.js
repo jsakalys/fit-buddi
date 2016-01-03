@@ -221,7 +221,7 @@ angular.module('fitBuddi.controllers', [])
     // get step data and execute appropriate script
     // stepcounter.getTodayStepCount(function(success){
     //   $scope.stepsToday = success;
-      $scope.stepsToday = 8000
+      $scope.stepsToday = 3000
       if ($scope.stepsToday < 1000) {
         $('#pet').spState(1);
         $scope.texttyping = [
@@ -310,7 +310,7 @@ angular.module('fitBuddi.controllers', [])
     };
     // get step history and create bar chart/list data
     // stepcounter.getHistory(function(success){
-      $scope.stepHistory = success;
+      // $scope.stepHistory = success;
       var stepLabels = [];
       var stepData = [];
       var dataLimit = 7;
