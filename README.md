@@ -9,18 +9,20 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 
 ### Screenshots
 
-![FitBuddi Home](/www/img/screenshot_buddi.png)
-![FitBuddi History](/www/img/screenshot_history.png)
-![FitBuddi Account](/www/img/screenshot_account.png)
-![FitBuddi Account](/www/img/screenshot_login.png)
+<img src="www/img/screenshot_buddi.png" width="240">
+<img src="www/img/screenshot_history.png" width="240">
+<img src="www/img/screenshot_account.png" width="240">
+<img src="www/img/screenshot_login.png" width="240">
 
 ### Features
+
 * View recent step history as a log and bar graph
 * View pet's health and mood
 * Give a gift to your pet to improve his condition using points from your past activity (coming soon)
 * Achievements (coming soon)
 
 ### Approach and Methods
+
 [View my pitch deck folder on DropBox](https://www.dropbox.com/sh/g6hteqbf2gaou32/AAAC8tHvf9iM1iNd-HaoRhhca?dl=0)
 ##### The workflow I took for making this app resembled something like this:
 1. Research cordova, ionic, firebase/angularfire and any required plugins to make sure the idea was feasible
@@ -34,7 +36,7 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 
 
 ### Credits
-##### Thanks to the following resources and libraries that I used to create this app:
+
 * [Ionic](https://www.ionicframework.com)
 * [AngularJS](http://angularjs.org/)
 * [Apache Cordova](http://cordova.apache.org/)
@@ -51,6 +53,7 @@ FitBuddi was built using Ionic & Cordova using HTML5 and AngularJS and a number 
 * [GIMP](https://www.gimp.org/) (for creating sprite sheets)
 
 ### Known Issues
+
 * Login with facebook will bring you back to the home panel, and user data will be empty
 * On first open of the app, data will not load. It only loads if you switch between tabs to refresh the page.
 * Buddy is not draggable in Android, but drag and drop animations are functional.
